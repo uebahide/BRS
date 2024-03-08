@@ -16,6 +16,10 @@
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+            <a href="{{route('user.')}}" class="sm:fixed sm:top-0 sm:left-0 p-6 text-left z-10 flex items-center space-x-2">
+                <img class="w-6" src="{{asset('images/online-library.png')}}" alt="">
+                <span class="font-semibold dark:text-black dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500 text-xl">RBS</span>
+            </a>
             <div>
                 <a href="/">
                     <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
@@ -23,6 +27,7 @@
             </div>
 
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+
                 {{ $slot }}
             </div>
         </div>

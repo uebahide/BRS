@@ -20,10 +20,10 @@
     </head>
     <body class="antialiased">
         <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-            <div class="sm:fixed sm:top-0 sm:left-0 p-6 text-left z-10 flex items-center space-x-2">
+            <a href="{{route('user.')}}" class="sm:fixed sm:top-0 sm:left-0 p-6 text-left z-10 flex items-center space-x-2">
                 <img class="w-6" src="{{asset('images/online-library.png')}}" alt="">
                 <span class="font-semibold dark:text-black dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500 text-xl">RBS</span>
-            </div>
+            </a>
             <div class="max-w-7xl mx-auto p-6 lg:p-8">
                 <div class="flex flex-col items-center space-y-3">
                     <p class="text-4xl">Welcome to BRS!</p>
@@ -31,20 +31,32 @@
                 </div>
 
                 @if (Route::has('user.login'))
-                <div class="text-center mt-20">
+                <div class="text-center mt-20 space-x-14">
                     @auth('users')
-                        <a href="{{ url('user/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500 underline">Dashboard</a>
+                    <a href="{{ route('user.dashboard') }}">
+                        <x-primary-button class="ms-3">
+                            {{ __('Dashboard') }}
+                        </x-primary-button>
+                    </a>
                     @else
-                        <a href="{{ route('user.login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500 border rounded p-2 bg-green-300 hover:bg-green-400">Log in</a>
+                        <a href="{{ route('user.login') }}">
+                            <x-primary-button class="ms-3">
+                                {{ __('Log in') }}
+                            </x-primary-button>
+                        </a>
 
                         @if (Route::has('user.register'))
-                            <a href="{{ route('user.register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500 border rounded p-2 bg-green-300 hover:bg-green-400">Register</a>
+                        <a href="{{ route('user.register') }}">
+                            <x-primary-button class="ms-3">
+                                {{ __('Register') }}
+                            </x-primary-button>
+                        </a>
                         @endif
                     @endauth
                 </div>
                 @endif
 
-                <div class="text-center mt-20">
+                <div class="text-center mt-40">
                     <span>- or - </span>
                 </div>
 
