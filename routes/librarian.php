@@ -14,6 +14,7 @@ use App\Http\Controllers\Librarian\Auth\RegisteredUserController;
 use App\Http\Controllers\Librarian\Auth\VerifyEmailController;
 use App\Http\Controllers\Librarian\BooksController;
 use App\Http\Controllers\Librarian\LibrarianController;
+use App\Models\Librarian;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -73,12 +74,12 @@ Route::middleware('auth:librarian')->group(function () {
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/home', [LibrarianController::class, 'home'])
+->middleware(['auth:librarian', 'verified'])->name('home');
 
-Route::resource('books', BooksController::class)->middleware('auth:librarian');
+Route::resource('books', BooksController::class)
+->middleware('auth:librarian')->except('index');
 
-Route::get('/home', function () {
-    return view('librarian.home');
-})->middleware(['auth:librarian', 'verified'])->name('home');
 
 Route::middleware('auth:librarian')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

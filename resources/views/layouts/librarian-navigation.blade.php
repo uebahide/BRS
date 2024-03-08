@@ -19,6 +19,9 @@
                     <x-nav-link :href="route('librarian.home')" :active="request()->routeIs('librarian.home')">
                         Home
                     </x-nav-link>
+                    <x-nav-link :href="route('librarian.books.create')" :active="request()->routeIs('librarian.books.create')">
+                        Add new book
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -74,9 +77,12 @@
             <x-responsive-nav-link :href="route('librarian.home')" :active="request()->routeIs('librarian.home')">
                 Home
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('librarian.books.create')" :active="request()->routeIs('librarian.books.create')">
+                Add new book
+            </x-responsive-nav-link>
         </div>
 
-        <!-- Responsive Settings Options -->
+        <!-- Responsive Settings Options --> 
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
