@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RedirectIfAuthenticated
 {
+    private const USER_GUARD = "users";
+    private const LIBRARIAN_GUARD = "librarian";
+
     /**
      * Handle an incoming request.
      *
@@ -19,12 +22,18 @@ class RedirectIfAuthenticated
     {
         $guards = empty($guards) ? [null] : $guards;
 
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
-            }
+        if(Auth::guard(self::LIBRARIAN_GUARD)->check() && $request->routeis('librarian.*')){
+            return redirect(RouteServiceProvider::LIBRARIAN_HOME);
         }
-
+        if(Auth::guard(self::USER_GUARD)->check() && $request->routeis('user.*')){
+            return redirect(RouteServiceProvider::USER_HOME);
+        }
+        
+        // foreach ($guards as $guard) {
+        //     if (Auth::guard($guard)->check()) {
+        //         return redirect(RouteServiceProvider::HOME);
+        //     }
+        // }
         return $next($request);
     }
 }

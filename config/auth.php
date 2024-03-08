@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'users',
         'passwords' => 'users',
     ],
 
@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'users' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'librarian' => [
+            'driver' => 'session',
+            'provider' => 'librarian',
+        ]
     ],
 
     /*
@@ -63,6 +71,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'librarian' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Librarian::class,
         ],
 
         // 'users' => [
@@ -94,6 +106,12 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'librarians' => [
+            'provider' => 'librarian',
+            'table' => 'librarian_password_reset',
             'expire' => 60,
             'throttle' => 60,
         ],

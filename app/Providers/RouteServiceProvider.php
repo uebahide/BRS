@@ -17,7 +17,8 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/dashboard';
+    public const USER_HOME = '/user/dashboard';
+    public const LIBRARIAN_HOME = '/librarian/dashboard';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -34,7 +35,15 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/api.php'));
 
             Route::middleware('web')
+                ->prefix('user')
+                ->name('user.')
                 ->group(base_path('routes/web.php'));
+
+
+            Route::middleware('web')
+                ->prefix('librarian')
+                ->name('librarian.')
+                ->group(base_path('routes/librarian.php'));
         });
     }
 }
