@@ -21,6 +21,7 @@ class Librarian extends Authenticatable
         'name',
         'email',
         'password',
+        'is_librarian'
     ];
 
     /**

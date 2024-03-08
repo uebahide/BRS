@@ -17,7 +17,8 @@ class LibrarianSeeder extends Seeder
         DB::table('librarians')->insert([
             'name' => 'librarian',
             'email' => 'test@test.test',
-            'password' => Hash::make('password123')
+            'password' => Hash::make('password123'),
+            'is_librarian' => true
         ]);
     }
 }
