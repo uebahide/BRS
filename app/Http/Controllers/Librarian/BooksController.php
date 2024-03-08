@@ -4,23 +4,24 @@ namespace App\Http\Controllers\Librarian;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Book;
 
 class BooksController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-    }
+    // public function index()
+    // {
+        
+    // }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('librarian.books.create');
     }
 
     /**
@@ -28,7 +29,7 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
