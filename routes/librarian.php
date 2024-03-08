@@ -12,6 +12,7 @@ use App\Http\Controllers\Librarian\Auth\PasswordController;
 use App\Http\Controllers\Librarian\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Librarian\Auth\RegisteredUserController;
 use App\Http\Controllers\Librarian\Auth\VerifyEmailController;
+use App\Http\Controllers\Librarian\BooksController;
 use App\Http\Controllers\Librarian\LibrarianController;
 
 Route::middleware('guest')->group(function () {
@@ -73,11 +74,11 @@ Route::middleware('auth:librarian')->group(function () {
 |
 */
 
-Route::get('/', [LibrarianController::class, 'welcome']);
+Route::resource('books', BooksController::class)->middleware('auth:librarian');
 
-Route::get('/dashboard', function () {
-    return view('librarian.dashboard');
-})->middleware(['auth:librarian', 'verified'])->name('dashboard');
+Route::get('/home', function () {
+    return view('librarian.home');
+})->middleware(['auth:librarian', 'verified'])->name('home');
 
 Route::middleware('auth:librarian')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

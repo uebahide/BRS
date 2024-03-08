@@ -33,9 +33,9 @@
                 @if (Route::has('user.login'))
                 <div class="text-center mt-20 space-x-14">
                     @auth('users')
-                    <a href="{{ route('user.dashboard') }}">
+                    <a href="{{ route('user.home') }}">
                         <x-primary-button class="ms-3">
-                            {{ __('Dashboard') }}
+                            Home (user)
                         </x-primary-button>
                     </a>
                     @else
