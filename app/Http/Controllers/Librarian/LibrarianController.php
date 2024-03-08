@@ -11,6 +11,6 @@ class LibrarianController extends Controller
 
     public function welcome()
     {
-        return redirect()->route('librarian.dashboard');
+        return redirect()->route('librarian.home');
     }
 }
