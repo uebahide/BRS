@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Librarian;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GenreRequest;
 use Illuminate\Http\Request;
 use App\Models\Genre;
 
@@ -13,7 +14,7 @@ class GenresController extends Controller
      */
     public function index()
     {
-        $genres = Genre::all();
+        $genres = Genre::select()->paginate(5);
 
         return view('librarian.genres.index', compact('genres'));
     }
@@ -29,9 +30,18 @@ class GenresController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(GenreRequest $request)
     {
-        //
+        Genre::create([
+            'name' => $request->name,
+            'style' => $request->style
+        ]);
+
+        return redirect()->route('librarian.genres.index')
+            ->with([
+                "message" => "New genre was added successfully",
+                "status" => "info"
+            ]);
     }
 
     /**
@@ -47,7 +57,7 @@ class GenresController extends Controller
      */
     public function edit(string $id)
     {
-        $genre = Genre::findOrFail($id)->get();
+        $genre = Genre::findOrFail($id);
 
         return view('librarian.genres.edit', compact('genre'));
     }
@@ -55,9 +65,20 @@ class GenresController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(GenreRequest $request, string $id)
     {
-        //
+        $genre = Genre::findOrFail($id);
+
+        $genre->name = $request->name;
+        $genre->style = $request->style;
+
+        $genre->save();
+
+        return redirect()->route('librarian.genres.index')
+            ->with([
+                'message' => "Genre was edited successfully",
+                'status' => 'info'
+            ]);
     }
 
     /**
@@ -65,6 +86,45 @@ class GenresController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $genre = Genre::findOrFail($id);
+
+        $genre->delete();
+
+        return redirect()->route('librarian.genres.index')
+            ->with([
+                "message" => "The genre was archived successfully",
+                "status" => "alert"
+            ]);
+    }
+
+    public function expiredGenresIndex()
+    {
+        $genres = Genre::onlyTrashed()->select()->paginate(5);
+
+        return view('librarian.expired-genres.index', compact('genres')); 
+    }
+
+    public function expiredGenresDestroy(string $id)
+    {
+        $expiredOwner = Genre::onlyTrashed()->findOrFail($id);
+        $expiredOwner->forceDelete();
+
+        return redirect()->route('librarian.expired-genres.index')
+            ->with([
+                'message' => "The Genre was deleted completely.",
+                'status' => 'alert'
+            ]);
+    }
+
+    public function expiredGenresRestore(string $id)
+    {
+        $deletedGenre = Genre::onlyTrashed()->where('id', $id)->first();
+        $deletedGenre->restore();
+
+        return redirect()->route('librarian.expired-genres.index')
+            ->with([
+                "message" => "Archived genre was activated successfully",
+                "status" => "info"
+            ]);
     }
 }

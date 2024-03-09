@@ -30,7 +30,8 @@ class BookRequest extends FormRequest
             "pages" => 'nullable|integer',
             "language_code" => 'nullable|max:3|string',
             "isbn" => 'nullable|string|size:13|unique:books,isbn',
-            "in_stock" => 'nullable|integer'
+            "in_stock" => 'nullable|integer',
+            'genres' => 'required|array|min:1',
         ];
     }
 }
