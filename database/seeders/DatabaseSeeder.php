@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             LibrarianSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            GenreSeeder::class,
         ]);
     }
 }
