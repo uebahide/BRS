@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class=" border-b border-gray-100 ">
+<nav x-data="{ open: false }" class=" border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -24,6 +24,9 @@
                     </x-nav-link>
                     <x-nav-link :href="route('librarian.genres.index')" :active="request()->routeIs('librarian.genres.index')">
                         Genre list
+                    </x-nav-link>
+                    <x-nav-link :href="route('librarian.expired-genres.index')" :active="request()->routeIs('librarian.expired-genres.index')">
+                        Archived Genre list
                     </x-nav-link>
                     <x-nav-link :href="route('librarian.genres.create')" :active="request()->routeIs('librarian.genres.create')">
                        Add new genre

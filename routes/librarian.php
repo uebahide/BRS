@@ -85,6 +85,13 @@ Route::resource('books', BooksController::class)
 Route::resource('genres', GenresController::class)
 ->middleware('auth:librarian');
 
+Route::prefix('expired-genres')
+->middleware('auth:librarian')
+->group(function(){
+    Route::get('/index', [GenresController::class, 'expiredGenresIndex'])->name('expired-genres.index');
+    Route::post('/destroy/{genre}', [GenresController::class, 'expiredGenresDestroy'])->name('expired-genres.destroy');
+    Route::post('/restore/{genre}', [GenresController::class, 'expiredGenresRestore'])->name('expired-genres.restore');
+});
 
 
 

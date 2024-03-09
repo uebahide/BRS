@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('genres', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255);
+            $table->text('name', 255);
             $table->enum('style', ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
