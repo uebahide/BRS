@@ -22,6 +22,12 @@
                     <x-nav-link :href="route('librarian.books.create')" :active="request()->routeIs('librarian.books.create')">
                         Add new book
                     </x-nav-link>
+                    <x-nav-link :href="route('librarian.genres.index')" :active="request()->routeIs('librarian.genres.index')">
+                        Genre list
+                    </x-nav-link>
+                    <x-nav-link :href="route('librarian.genres.create')" :active="request()->routeIs('librarian.genres.create')">
+                       Add new genre
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -79,6 +85,12 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('librarian.books.create')" :active="request()->routeIs('librarian.books.create')">
                 Add new book
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('librarian.genres.index')" :active="request()->routeIs('librarian.genres.index')">
+                Genre list
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('librarian.genres.create')" :active="request()->routeIs('librarian.genres.create')">
+                Add new genre
             </x-responsive-nav-link>
         </div>
 

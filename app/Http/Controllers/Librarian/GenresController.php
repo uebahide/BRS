@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Librarian;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Genre;
 
 class GenresController extends Controller
 {
@@ -12,7 +13,9 @@ class GenresController extends Controller
      */
     public function index()
     {
-        //
+        $genres = Genre::all();
+
+        return view('librarian.genres.index', compact('genres'));
     }
 
     /**
@@ -20,7 +23,7 @@ class GenresController extends Controller
      */
     public function create()
     {
-        //
+        return view('librarian.genres.create');
     }
 
     /**
@@ -44,7 +47,9 @@ class GenresController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $genre = Genre::findOrFail($id)->get();
+
+        return view('librarian.genres.edit', compact('genre'));
     }
 
     /**
