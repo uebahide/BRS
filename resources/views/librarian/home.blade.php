@@ -1,17 +1,64 @@
 <x-app-layout>
-    {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot> --}}
+    {{-- 
+        Number of users in the system (o)
+        Number of genres (o)
+        Number of books (o)
+        Number of active book rentals (in accepted status)
+        List of genres. Each list item must be a link, referring to the List by genre page.
+        Search for books. See Search. 
+    --}}
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
+                    <div>
+                        <p>Books: <span>{{count($books)}}</span></p>
+                    </div>
+                    <div>
+                        <p>Genres: <span>{{count($genres)}}</span></p>
+                    </div>
+                    <div>
+                        <p>Current registered users : <span>{{count($users)}}</span></p>
+                    </div>
+
+                    <div>
+                        <p class="">Genres</p>
+                        @foreach ($genres as $genre)
+                            <a href="#" class="underline">
+                                {{$genre->name}}
+                            </a>                            
+                        @endforeach
+                    </div>
+
+                    <div class="mt-5">
+                        <div>Search books</div>
+                        <div class="bg-gray-300 p-5 rounded">
+                            <div class="">
+                                <div>Title</div>
+                                <form class="flex sm:items-center" method="GET" action="">
+                                    @csrf
+                                    <input id="q" name="q" class="inline w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-3 leading-5 placeholder-gray-500 focus:border-green-300 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm" placeholder="Search for title" type="search" autofocus="true" value="">
+                                    <x-primary-button class="ms-3">
+                                        Search
+                                    </x-primary-button>
+                                </form>
+                            </div>
+                            <div class="mt-5">
+                                <div>Authors</div>
+                                <form class="flex sm:items-center" method="GET" action="">
+                                    @csrf
+                                    <input id="q" name="q" class="inline w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-3 leading-5 placeholder-gray-500 focus:border-green-300 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm" placeholder="Search for authors" type="search" autofocus="" value="">
+                                    <x-primary-button class="ms-3">
+                                        Search
+                                    </x-primary-button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
             </div>
+            
         </div>
     </div>
 </x-app-layout>

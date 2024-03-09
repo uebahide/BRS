@@ -21,8 +21,8 @@
     <body class="antialiased">
         <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
             <a href="{{route('user.')}}" class="sm:fixed sm:top-0 sm:left-0 p-6 text-left z-10 flex items-center space-x-2">
-                <img class="w-6" src="{{asset('images/online-library.png')}}" alt="">
-                <span class="font-semibold dark:text-black dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500 text-xl">RBS</span>
+                <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                <span class="font-semibold dark:text-black dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500 text-xl">BRS</span>
             </a>
             <div class="max-w-7xl mx-auto p-6 lg:p-8">
                 <div class="flex flex-col items-center space-y-3">
