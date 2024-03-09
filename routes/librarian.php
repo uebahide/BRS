@@ -13,6 +13,8 @@ use App\Http\Controllers\Librarian\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Librarian\Auth\RegisteredUserController;
 use App\Http\Controllers\Librarian\Auth\VerifyEmailController;
 use App\Http\Controllers\Librarian\BooksController;
+use App\Http\Controllers\Librarian\GenresController;
+use App\Http\Controllers\Librarian\RengesController;
 use App\Http\Controllers\Librarian\LibrarianController;
 use App\Models\Librarian;
 
@@ -79,6 +81,11 @@ Route::get('/home', [LibrarianController::class, 'home'])
 
 Route::resource('books', BooksController::class)
 ->middleware('auth:librarian')->except('index');
+
+Route::resource('genres', GenresController::class)
+->middleware('auth:librarian');
+
+
 
 
 Route::middleware('auth:librarian')->group(function () {
