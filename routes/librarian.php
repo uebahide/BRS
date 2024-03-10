@@ -79,6 +79,7 @@ Route::middleware('auth:librarian')->group(function () {
 Route::get('/home', [LibrarianController::class, 'home'])
 ->middleware(['auth:librarian', 'verified'])->name('home');
 
+
 Route::resource('books', BooksController::class)
 ->middleware('auth:librarian')->except('index');
 
@@ -89,6 +90,15 @@ Route::prefix('books')
     Route::post('/filteredByTitle', [BooksController::class, 'filteredByTitleIndex'])->name('books.filteredByTitleIndex');
     Route::post('/filteredByAuthors', [BooksController::class, 'filteredByAuthorsIndex'])->name('books.filteredByAuthorsIndex');
 });
+
+Route::prefix('expired-books')
+->middleware('auth:librarian')
+->group(function(){
+    Route::get('/index', [BooksController::class, 'expiredBooksIndex'])->name('expired-books.index');
+    Route::post('/destroy/{book}', [BooksController::class, 'expiredBooksDestroy'])->name('expired-books.destroy');
+    Route::post('/restore/{book}', [BooksController::class, 'expiredBooksRestore'])->name('expired-books.restore');
+});
+
 
 Route::resource('genres', GenresController::class)
 ->middleware('auth:librarian');

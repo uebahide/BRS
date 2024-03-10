@@ -93,6 +93,16 @@
                     </x-primary-button>
                   </form>
                 </div>
+
+                <div class="flex justify-center mt-32">
+                  <form action="{{route('librarian.books.destroy', ['book' => $book->id])}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <x-danger-button class="ms-3">
+                        Archive
+                    </x-danger-button>
+                  </form>
+                </div>
               </div>
           </div>
       </div>

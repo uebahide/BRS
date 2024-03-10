@@ -28,6 +28,9 @@
                     <x-nav-link :href="route('librarian.expired-genres.index')" :active="request()->routeIs('librarian.expired-genres.index')">
                         Archived Genre list
                     </x-nav-link>
+                    <x-nav-link :href="route('librarian.expired-books.index')" :active="request()->routeIs('librarian.expired-books.index')">
+                        Archived Books list
+                    </x-nav-link>
                     <x-nav-link :href="route('librarian.genres.create')" :active="request()->routeIs('librarian.genres.create')">
                        Add new genre
                     </x-nav-link>
@@ -94,6 +97,12 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('librarian.genres.create')" :active="request()->routeIs('librarian.genres.create')">
                 Add new genre
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('librarian.expired-genres.index')" :active="request()->routeIs('librarian.expired-genres.index')">
+                Archived genre list
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('librarian.expired-books.index')" :active="request()->routeIs('librarian.expired-books.index')">
+                Archived book list
             </x-responsive-nav-link>
         </div>
 

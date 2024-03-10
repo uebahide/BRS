@@ -189,6 +189,45 @@ class BooksController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $book = Book::findOrFail($id);
+
+        $book->delete();
+
+        return redirect()->route('librarian.home')
+            ->with([
+                "message" => "The book was archived successfully",
+                "status" => "alert"
+            ]);
+    }
+
+    public function expiredBooksIndex()
+    {
+        $books = Book::onlyTrashed()->select()->paginate(5);
+
+        return view('librarian.expired-books.index', compact('books')); 
+    }
+
+    public function expiredBooksDestroy(string $id)
+    {
+        $expiredBook = Book::onlyTrashed()->findOrFail($id);
+        $expiredBook->forceDelete();
+
+        return redirect()->route('librarian.expired-books.index')
+            ->with([
+                'message' => "The Book was deleted completely.",
+                'status' => 'alert'
+            ]);
+    }
+
+    public function expiredBooksRestore(string $id)
+    {
+        $deletedBook = Book::onlyTrashed()->where('id', $id)->first();
+        $deletedBook->restore();
+
+        return redirect()->route('librarian.expired-books.index')
+            ->with([
+                "message" => "Archived book was activated successfully",
+                "status" => "info"
+            ]);
     }
 }
