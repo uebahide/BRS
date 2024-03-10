@@ -57,19 +57,37 @@
                   @if($genre_id)
                   <a href="{{route('librarian.books.filteredByGenreIndex', ['genre' => $genre_id])}}">
                     <x-secondary-button class="ms-3">
-                        Back
+                      Back
                     </x-secondary-button>
                   </a>
+                  @elseif($title)
+                  <form class="flex sm:items-center" method="POST" action="{{route('librarian.books.filteredByTitleIndex')}}">
+                    @csrf
+                    <input type="hidden" id="title" name="title" value="{{$title}}">
+                    <x-secondary-submit-button class="ms-3">
+                      Back
+                    </x-secondary-submit-button>
+                  </form>
+                  @elseif($authors)
+                  <form class="flex sm:items-center" method="POST" action="{{route('librarian.books.filteredByAuthorsIndex')}}">
+                    @csrf
+                    <input type="hidden" id="authors" name="authors" value="{{$authors}}">
+                    <x-secondary-submit-button class="ms-3">
+                      Back
+                    </x-secondary-submit-button>
+                  </form>
                   @else
                   <a href="{{route('librarian.home')}}">
                     <x-secondary-button class="ms-3">
-                        Back
+                      Back
                     </x-secondary-button>
                   </a>
                   @endif
                   <form action="{{route('librarian.books.edit', ['book' => $book->id])}}" method="GET">
                     @csrf
                     <input type="hidden" name="genre_id" value={{$genre_id}}>
+                    <input type="hidden" name="title" value={{$title}}>
+                    <input type="hidden" name="authors" value={{$authors}}>
                     <x-primary-button class="ms-3">
                       Edit
                     </x-primary-button>

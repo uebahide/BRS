@@ -86,8 +86,8 @@ Route::prefix('books')
 ->middleware('auth:librarian')
 ->group(function(){
     Route::get('/filteredByGenre/{genre}', [BooksController::class, 'filteredByGenreIndex'])->name('books.filteredByGenreIndex');
-    Route::get('/filteredByTitle/{title}', [BooksController::class, 'filteredByTitleIndex'])->name('books.filteredByTitleIndex');
-    Route::get('/filteredByAuthors/{authors}', [BooksController::class, 'filteredByAuthorsIndex'])->name('books.filteredByAuthorsIndex');
+    Route::post('/filteredByTitle', [BooksController::class, 'filteredByTitleIndex'])->name('books.filteredByTitleIndex');
+    Route::post('/filteredByAuthors', [BooksController::class, 'filteredByAuthorsIndex'])->name('books.filteredByAuthorsIndex');
 });
 
 Route::resource('genres', GenresController::class)
