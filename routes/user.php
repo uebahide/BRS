@@ -12,6 +12,8 @@ use App\Http\Controllers\User\Auth\PasswordController;
 use App\Http\Controllers\User\Auth\PasswordResetLinkController;
 use App\Http\Controllers\User\Auth\RegisteredUserController;
 use App\Http\Controllers\User\Auth\VerifyEmailController;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\BooksController;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -75,9 +77,18 @@ Route::get('/', function () {
     return view('user.welcome');
 });
 
-Route::get('/home', function () {
-    return view('user.home');
-})->middleware(['auth:users', 'verified'])->name('home');
+Route::get('/home', [UserController::class, 'home'])
+->middleware(['auth:users', 'verified'])->name('home');
+
+
+Route::prefix('books')
+->middleware('auth:users')
+->group(function(){
+    Route::get('/show/{book}', [BooksController::class, 'show'])->name('books.show');
+    Route::get('/filteredByGenre/{genre}', [BooksController::class, 'filteredByGenreIndex'])->name('books.filteredByGenreIndex');
+    Route::post('/filteredByTitle', [BooksController::class, 'filteredByTitleIndex'])->name('books.filteredByTitleIndex');
+    Route::post('/filteredByAuthors', [BooksController::class, 'filteredByAuthorsIndex'])->name('books.filteredByAuthorsIndex');
+});
 
 Route::middleware('auth:users')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
