@@ -24,11 +24,13 @@
 
                     <div>
                         <p class="">Genres</p>
-                        @foreach ($genres as $genre)
-                            <a href="#" class="underline">
-                                {{$genre->name}}
-                            </a>                            
-                        @endforeach
+                        <div class="space-x-2">
+                            @foreach ($genres as $genre)
+                                <a href="{{route('librarian.books.filteredByGenreIndex', ['genre' => $genre->id])}}" class="underline">
+                                    {{$genre->name}}
+                                </a>                            
+                            @endforeach
+                        </div>
                     </div>
 
                     <div class="mt-5">

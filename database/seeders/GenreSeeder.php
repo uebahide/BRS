@@ -38,6 +38,10 @@ class GenreSeeder extends Seeder
             [
                 'name' => 'SF',
                 'style' => 'info'
+            ],
+            [
+                'name' => 'nature',
+                'style' => 'success'
             ]
         ]);
     }

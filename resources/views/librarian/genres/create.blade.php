@@ -28,11 +28,11 @@
                   <x-input-error :messages="$errors->get('style')" class="" />
 
                   <div class="mb-6 flex justify-around">
-                    <a href="{{route('librarian.genres.index')}}">
+                    {{-- <a href="{{route('librarian.genres.index')}}">
                       <x-secondary-button class="ms-3">
                         Back
                       </x-secondary-button>
-                    </a>
+                    </a> --}}
                     <x-primary-button class="ms-3">
                         Submit
                     </x-primary-button>

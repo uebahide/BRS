@@ -82,6 +82,14 @@ Route::get('/home', [LibrarianController::class, 'home'])
 Route::resource('books', BooksController::class)
 ->middleware('auth:librarian')->except('index');
 
+Route::prefix('books')
+->middleware('auth:librarian')
+->group(function(){
+    Route::get('/filteredByGenre/{genre}', [BooksController::class, 'filteredByGenreIndex'])->name('books.filteredByGenreIndex');
+    Route::get('/filteredByTitle/{title}', [BooksController::class, 'filteredByTitleIndex'])->name('books.filteredByTitleIndex');
+    Route::get('/filteredByAuthors/{authors}', [BooksController::class, 'filteredByAuthorsIndex'])->name('books.filteredByAuthorsIndex');
+});
+
 Route::resource('genres', GenresController::class)
 ->middleware('auth:librarian');
 

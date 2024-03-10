@@ -22,6 +22,14 @@ class BooksController extends Controller
         
     // }
 
+    public function filteredByGenreIndex(string $id)
+    {
+        $genre = Genre::findOrFail($id);
+        $books = $genre->Books()->paginate(6);
+
+        return view('librarian.books.filtered-by-genre-index', compact('genre', 'books'));        
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -78,17 +86,33 @@ class BooksController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id, Request $request)
     {
-        //
+        $book = Book::findOrFail($id);
+        if($request->genre_id){
+            $genre_id = $request->genre_id;
+        }else
+        {
+            $genre_id = null;
+        }
+
+        return view('librarian.books.show', compact('book', 'genre_id'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id, Request $request)
     {
-        //
+        $genre_id = $request->genre_id;
+        $book = Book::findOrFail($id);
+        $genres = Genre::all();
+        $current_genres = [];
+        foreach($book->Genres as $genre){
+            $current_genres[] = $genre->id;
+        }
+
+        return view('librarian.books.edit', compact('book', 'genres', 'current_genres', 'genre_id'));
     }
 
     /**
@@ -96,7 +120,37 @@ class BooksController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $book = Book::findOrFail($id);
+
+        $book->title = $request->title;
+        $book->authors = $request->authors;
+        $book->description = $request->description;
+        $book->released_at = $request->released_at;
+        // "cover_image" => $request->cover_image,
+        $book->pages = $request->pages;
+        // "language_code" =>  $request->language_code,
+        $book->isbn = $request->isbn;
+        $book->in_stock = $request->in_stock;
+
+        $book_genres = book_genre::where('book_id', $id)->get();
+        foreach($book_genres as $book_genre){
+            $book_genre->delete();
+        }
+
+        $genre_ids = $request->genres;
+
+        foreach($genre_ids as $genre_id){
+            book_genre::create([
+                "book_id" => $book->id,
+                "genre_id" => $genre_id
+            ]);
+        }
+
+        $book->save();
+
+        $genre_id = $request->genre_id;
+
+        return view('librarian.books.show', compact('book', 'genre_id'));
     }
 
     /**

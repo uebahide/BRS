@@ -64,11 +64,11 @@
                   </div>
 
                   <div class="mb-6 flex justify-around">
-                    <a href="{{route('librarian.home')}}">
+                    {{-- <a href="{{route('librarian.home')}}">
                       <x-secondary-button class="ms-3">
                           Back
                       </x-secondary-button>
-                    </a>
+                    </a> --}}
                     <x-primary-button class="ms-3">
                         Submit
                     </x-primary-button>

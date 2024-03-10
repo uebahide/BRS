@@ -10,7 +10,7 @@
                     </a> --}}
                     <a href="{{route('user.')}}" class="sm:fixed sm:top-0 sm:left-0 p-6 text-left z-10 flex items-center space-x-2">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                        <span class="font-semibold dark:text-black dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500 text-xl">BRS</span>
+                        {{-- <span class="font-semibold dark:text-black dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500 text-xl">BRS</span> --}}
                     </a>
                 </div>
 
