@@ -56,6 +56,8 @@
                 </div>
                 @endif
 
+                @auth('users')
+                @else
                 <div class="text-center mt-40">
                     <span>- or - </span>
                 </div>
@@ -64,6 +66,7 @@
                     <span>Do you want to </span>
                     <a href="{{ url('librarian/login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500 underline">Join as Librarian?</a>
                 </div>
+                @endauth
             </div>
         </div>
     </body>
