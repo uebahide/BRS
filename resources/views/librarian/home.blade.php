@@ -38,9 +38,9 @@
                         <div class="bg-gray-300 p-5 rounded">
                             <div class="">
                                 <div>Title</div>
-                                <form class="flex sm:items-center" method="GET" action="">
+                                <form class="flex sm:items-center" method="POST" action="{{route('librarian.books.filteredByTitleIndex')}}">
                                     @csrf
-                                    <input id="q" name="q" class="inline w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-3 leading-5 placeholder-gray-500 focus:border-green-300 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm" placeholder="Search for title" type="search" autofocus="true" value="">
+                                    <input id="title" name="title" class="inline w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-3 leading-5 placeholder-gray-500 focus:border-green-300 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm" placeholder="Search for title" type="search" autofocus="false" value="{{old('title')}}">
                                     <x-primary-button class="ms-3">
                                         Search
                                     </x-primary-button>
@@ -48,9 +48,9 @@
                             </div>
                             <div class="mt-5">
                                 <div>Authors</div>
-                                <form class="flex sm:items-center" method="GET" action="">
+                                <form class="flex sm:items-center" method="POST" action="{{route('librarian.books.filteredByAuthorsIndex')}}">
                                     @csrf
-                                    <input id="q" name="q" class="inline w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-3 leading-5 placeholder-gray-500 focus:border-green-300 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm" placeholder="Search for authors" type="search" autofocus="" value="">
+                                    <input id="authors" name="authors" class="inline w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-3 leading-5 placeholder-gray-500 focus:border-green-300 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm" placeholder="Search for authors" type="search" autofocus="" value="{{old('authors')}}">
                                     <x-primary-button class="ms-3">
                                         Search
                                     </x-primary-button>

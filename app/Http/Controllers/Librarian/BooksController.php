@@ -30,6 +30,24 @@ class BooksController extends Controller
         return view('librarian.books.filtered-by-genre-index', compact('genre', 'books'));        
     }
 
+    public function filteredByTitleIndex(Request $request)
+    {
+        $title = $request->title;
+
+        $books = Book::where('title', 'LIKE', '%' . $title . '%')->paginate(6);
+
+        return view('librarian.books.filtered-by-title-index', compact('title', 'books'));
+    }
+
+    public function filteredByAuthorsIndex(Request $request)
+    {
+        $authors = $request->authors;
+
+        $books = Book::where('authors', 'LIKE', '%' . $authors . '%')->paginate(6);
+
+        return view('librarian.books.filtered-by-authors-index', compact('authors', 'books'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -89,14 +107,22 @@ class BooksController extends Controller
     public function show(string $id, Request $request)
     {
         $book = Book::findOrFail($id);
+        $genre_id = null;
+        $title = null;
+        $authors = null;
         if($request->genre_id){
             $genre_id = $request->genre_id;
-        }else
+        }
+        elseif($request->title)
         {
-            $genre_id = null;
+            $title = $request->title;
+        }
+        elseif($request->authors)
+        {
+            $authors = $request->authors;
         }
 
-        return view('librarian.books.show', compact('book', 'genre_id'));
+        return view('librarian.books.show', compact('book', 'genre_id', 'title', 'authors'));
     }
 
     /**
@@ -105,6 +131,9 @@ class BooksController extends Controller
     public function edit(string $id, Request $request)
     {
         $genre_id = $request->genre_id;
+        $title = $request->title;
+        $authors = $request->authors;
+
         $book = Book::findOrFail($id);
         $genres = Genre::all();
         $current_genres = [];
@@ -112,7 +141,7 @@ class BooksController extends Controller
             $current_genres[] = $genre->id;
         }
 
-        return view('librarian.books.edit', compact('book', 'genres', 'current_genres', 'genre_id'));
+        return view('librarian.books.edit', compact('book', 'genres', 'current_genres', 'genre_id', 'title', 'authors'));
     }
 
     /**
@@ -149,8 +178,10 @@ class BooksController extends Controller
         $book->save();
 
         $genre_id = $request->genre_id;
+        $title = $request->searched_title;
+        $authors = $request->searched_authors;
 
-        return view('librarian.books.show', compact('book', 'genre_id'));
+        return view('librarian.books.show', compact('book', 'genre_id', 'title', 'authors'));
     }
 
     /**
