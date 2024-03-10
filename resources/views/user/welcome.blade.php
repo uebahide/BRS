@@ -25,7 +25,7 @@
                 <span class="font-semibold dark:text-black dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500 text-xl">BRS</span>
             </a>
             <div class="max-w-7xl mx-auto p-6 lg:p-8">
-                <div class="flex flex-col items-center space-y-3 shadow py-6 px-20 rounded-lg">
+                <div class="flex flex-col items-center space-y-3 shadow-lg py-6 px-20 rounded-lg">
                     <p class="text-4xl">Welcome to BRS!</p>
                     <p>Find your best books</p>
                 </div>

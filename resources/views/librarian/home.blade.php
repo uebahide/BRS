@@ -1,41 +1,66 @@
 <x-app-layout>
-    {{-- 
-        Number of users in the system (o)
-        Number of genres (o)
-        Number of books (o)
-        Number of active book rentals (in accepted status)
-        List of genres. Each list item must be a link, referring to the List by genre page.
-        Search for books. See Search. 
-    --}}
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div>
-                        <p>Books: <span>{{count($books)}}</span></p>
-                    </div>
-                    <div>
-                        <p>Genres: <span>{{count($genres)}}</span></p>
-                    </div>
-                    <div>
-                        <p>Current registered users : <span>{{count($users)}}</span></p>
+                        <div class="text-center text-2xl mb-4 shadow">Information</div>
+                        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mb-10">
+                            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <tbody>
+                                    <tr class="border-b border-gray-200 dark:border-gray-700">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                            Number of users
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            {{count($users)}}
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-200 dark:border-gray-700">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                            Number of books
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            {{count($books)}}
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-200 dark:border-gray-700">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                            Number of genres
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            {{count($genres)}}
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-200 dark:border-gray-700">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                            Number of active book rentals
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
-                    <div>
-                        <p class="">Genres</p>
-                        <div class="space-x-2">
+                    <div class="flex flex-col">
+                        <div class="text-center text-2xl mb-4 shadow">Seach by genre</div>
+                        <div class="flex flex-wrap mx-auto justify-center space-x-5 mb-10 shadow-md p-5 rounded">
                             @foreach ($genres as $genre)
-                                <a href="{{route('librarian.books.filteredByGenreIndex', ['genre' => $genre->id])}}" class="underline">
-                                    {{$genre->name}}
-                                </a>                            
+                            <button 
+                                onclick="location.href='{{route('librarian.books.filteredByGenreIndex', ['genre' => $genre->id])}}'"
+                                class="border rounded-2xl px-2 py-1 shadow-md hover:shadow bg-gray-200"
+                            >{{$genre->name}}</button>
                             @endforeach
                         </div>
                     </div>
 
-                    <div class="mt-5">
-                        <div>Search books</div>
-                        <div class="bg-gray-300 p-5 rounded">
+                    <div class="">
+                        <div class="text-center text-2xl shadow mb-4">Search books</div>
+                        <div class="bg-gray-300 p-5 rounded shadow-md">
                             <div class="">
                                 <div>Title</div>
                                 <form class="flex sm:items-center" method="POST" action="{{route('librarian.books.filteredByTitleIndex')}}">
@@ -58,7 +83,7 @@
                             </div>
                         </div>
                     </div>
-                    
+                </div>
             </div>
             
         </div>

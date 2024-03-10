@@ -106,8 +106,8 @@ class GenresController extends Controller
 
     public function expiredGenresDestroy(string $id)
     {
-        $expiredOwner = Genre::onlyTrashed()->findOrFail($id);
-        $expiredOwner->forceDelete();
+        $expiredGenre = Genre::onlyTrashed()->findOrFail($id);
+        $expiredGenre->forceDelete();
 
         return redirect()->route('librarian.expired-genres.index')
             ->with([
