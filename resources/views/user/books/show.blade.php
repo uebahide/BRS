@@ -53,7 +53,7 @@
                     </x-secondary-button>
                   </a>
                   @elseif($title)
-                  <form class="flex sm:items-center" method="POST" action="{{route('user.books.filteredByTitleIndex')}}">
+                  <form id="title-form" class="flex sm:items-center" method="GET">
                     @csrf
                     <input type="hidden" id="title" name="title" value="{{$title}}">
                     <x-secondary-submit-button class="ms-3">
@@ -61,7 +61,7 @@
                     </x-secondary-submit-button>
                   </form>
                   @elseif($authors)
-                  <form class="flex sm:items-center" method="POST" action="{{route('user.books.filteredByAuthorsIndex')}}">
+                  <form id="authors-form" class="flex sm:items-center" method="GET">
                     @csrf
                     <input type="hidden" id="authors" name="authors" value="{{$authors}}">
                     <x-secondary-submit-button class="ms-3">
@@ -69,7 +69,7 @@
                     </x-secondary-submit-button>
                   </form>
                   @else
-                  <a href="{{route('librarian.home')}}">
+                  <a href="{{route('user.home')}}">
                     <x-secondary-button class="ms-3">
                       Back
                     </x-secondary-button>
@@ -81,3 +81,28 @@
       </div>
   </div>
 </x-app-layout>
+
+<script>
+  const title_form = document.querySelector("#title-form");
+  const authors_form = document.querySelector("#authors-form");
+
+  if(title_form){
+    document.getElementById('title-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const title = document.querySelector('#title').value;
+        const titleRoute = '{{ route("user.books.filteredByTitleIndex", ["title" => ":title"]) }}';
+        this.action = titleRoute.replace(':title', title); 
+        this.submit();
+    });
+  }
+  if(authors_form){
+    document.getElementById('authors-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const authors = document.querySelector('#authors').value;
+        const authorsRoute = '{{ route("user.books.filteredByAuthorsIndex", ["authors" => ":authors"]) }}';
+        this.action = authorsRoute.replace(':authors', authors); 
+        this.submit();
+    });
+  }
+  
+</script>

@@ -30,18 +30,16 @@ class BooksController extends Controller
         return view('librarian.books.filtered-by-genre-index', compact('genre', 'books'));        
     }
 
-    public function filteredByTitleIndex(Request $request)
+    public function filteredByTitleIndex(string $title)
     {
-        $title = $request->title;
 
         $books = Book::where('title', 'LIKE', '%' . $title . '%')->paginate(6);
 
         return view('librarian.books.filtered-by-title-index', compact('title', 'books'));
     }
 
-    public function filteredByAuthorsIndex(Request $request)
+    public function filteredByAuthorsIndex(string $authors)
     {
-        $authors = $request->authors;
 
         $books = Book::where('authors', 'LIKE', '%' . $authors . '%')->paginate(6);
 
