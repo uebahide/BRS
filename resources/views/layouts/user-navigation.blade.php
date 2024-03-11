@@ -19,6 +19,9 @@
                     <x-nav-link :href="route('user.home')" :active="request()->routeIs('user.home')">
                         Home
                     </x-nav-link>
+                    <x-nav-link :href="route('user.borrows.index')" :active="request()->routeIs('user.borrows.index')">
+                        My Rentals
+                    </x-nav-link>
                 </div>
             </div>
 

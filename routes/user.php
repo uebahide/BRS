@@ -14,6 +14,7 @@ use App\Http\Controllers\User\Auth\RegisteredUserController;
 use App\Http\Controllers\User\Auth\VerifyEmailController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\BooksController;
+use App\Http\Controllers\User\BorrowsController;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -88,6 +89,14 @@ Route::prefix('books')
     Route::get('/filteredByGenre/{genre}', [BooksController::class, 'filteredByGenreIndex'])->name('books.filteredByGenreIndex');
     Route::get('/filteredByTitle/{title}', [BooksController::class, 'filteredByTitleIndex'])->name('books.filteredByTitleIndex');
     Route::get('/filteredByAuthors/{authors}', [BooksController::class, 'filteredByAuthorsIndex'])->name('books.filteredByAuthorsIndex');
+});
+
+Route::prefix('borrows')
+->middleware('auth:users')
+->group(function () {
+    Route::get('/index', [BorrowsController::class, 'index'])->name('borrows.index');
+    Route::get('/show/{borrow}', [BorrowsController::class, 'show'])->name('borrows.show');
+    Route::post('/create', [BorrowsController::class, 'create'])->name('borrows.create');
 });
 
 Route::middleware('auth:users')->group(function () {
