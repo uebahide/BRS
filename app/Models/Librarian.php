@@ -43,4 +43,12 @@ class Librarian extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function managedRequests() {
+        return $this->hasMany(Borrow::class, 'request_managed_by');
+    }
+    
+    public function managedReturns() {
+        return $this->hasMany(Borrow::class, 'return_managed_by');
+    }
 }

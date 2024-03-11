@@ -68,6 +68,12 @@
                       Back
                     </x-secondary-submit-button>
                   </form>
+                  @elseif($borrow_id)
+                  <a href="{{route('user.borrows.show', ['borrow' => $borrow_id])}}">
+                    <x-secondary-button class="ms-3">
+                      Back
+                    </x-secondary-button>
+                  </a>
                   @else
                   <a href="{{route('user.home')}}">
                     <x-secondary-button class="ms-3">

@@ -42,6 +42,7 @@ class BooksController extends Controller
         $genre_id = null;
         $title = null;
         $authors = null;
+        $borrow_id = null;
         if($request->genre_id){
             $genre_id = $request->genre_id;
         }
@@ -53,7 +54,11 @@ class BooksController extends Controller
         {
             $authors = $request->authors;
         }
+        elseif($request->borrow_id)
+        {
+            $borrow_id = $request->borrow_id;
+        }
 
-        return view('user.books.show', compact('book', 'genre_id', 'title', 'authors'));
+        return view('user.books.show', compact('book', 'genre_id', 'title', 'authors', 'borrow_id'));
     }
 }

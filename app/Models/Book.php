@@ -25,4 +25,8 @@ class Book extends Model
     public function Genres(){
         return $this->belongsToMany(Genre::class, "book_genres");
     }
+
+    public function borrows() {
+        return $this->hasMany(Borrow::class, 'book_id');
+    }
 }
