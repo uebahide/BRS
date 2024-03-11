@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Genre;
 use App\Models\Book;
+use App\Services\BorrowService;
  
 
 class BooksController extends Controller
@@ -38,7 +39,6 @@ class BooksController extends Controller
 
     public function show(string $id, Request $request)
     {
-        $book = Book::findOrFail($id);
         $genre_id = null;
         $title = null;
         $authors = null;
@@ -59,6 +59,9 @@ class BooksController extends Controller
             $borrow_id = $request->borrow_id;
         }
 
-        return view('user.books.show', compact('book', 'genre_id', 'title', 'authors', 'borrow_id'));
+        $book = Book::findOrFail($id);
+        $isOnGoingRental = BorrowService::isOnGoingRental($book);
+
+        return view('user.books.show', compact('book', 'genre_id', 'title', 'authors', 'borrow_id', 'isOnGoingRental'));
     }
 }

@@ -45,6 +45,19 @@
                   </div>
                 </div>
 
+                @if(!$isOnGoingRental)
+                <div class="flex justify-center mb-6">
+                  <x-primary-button class="ms-3">
+                    Rent this book
+                  </x-primary-button>
+                </div>
+                @else
+                <div class="flex justify-center mb-6 text-red-300">
+                  <p>Currently, you are rentaling this book</p>
+                </div>
+                @endif
+
+
                 <div class="mb-6 flex justify-around">
                   @if($genre_id)
                   <a href="{{route('user.books.filteredByGenreIndex', ['genre' => $genre_id])}}">

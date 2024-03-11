@@ -12,21 +12,19 @@ class BorrowsController extends Controller
 {
     public function index()
     {
-        $borrows = Borrow::where('reader_id', Auth::id())->get();
-        // dd(count($borrows));
+        $current_date = Carbon::now();
 
-        $currente_data = Carbon::now();
-
+        // $borrows_pending = Borrow::where('reader_id', Auth::id())->where('status', "PENDING")->paginate(4, ['*'], 'pending_page');
+        // $borrows_accepted = Borrow::where('reader_id', Auth::id())->where('status', "ACCEPTED")->where('deadline', ">", $current_date)->paginate(4, ['*'], 'accepted_page');
+        // $borrows_late = Borrow::where('reader_id', Auth::id())->where('status', "ACCEPTED")->where('deadline', "<=", $current_date)->paginate(4, ['*'], 'late_page');
+        // $borrows_rejected = Borrow::where('reader_id', Auth::id())->where('status', "REJECTED")->paginate(4, ['*'], 'rejected_page');
+        // $borrows_returned = Borrow::where('reader_id', Auth::id())->where('status', "RETURNED")->paginate(4, ['*'], 'returned_page');
         $borrows_pending = Borrow::where('reader_id', Auth::id())->where('status', "PENDING")->get();
-        // dd(count($borrows_pending));
-        $borrows_accepted = Borrow::where('reader_id', Auth::id())->where('status', "ACCEPTED")
-            ->where('deadline', ">", $currente_data)->get();
-        // dd(count($borrows_accepted));
-        $borrows_late = Borrow::where('reader_id', Auth::id())->where('status', "ACCEPTED")
-            ->where('deadline', "<=", $currente_data)->get();
-        // dd(count($borrows_late));
+        $borrows_accepted = Borrow::where('reader_id', Auth::id())->where('status', "ACCEPTED")->where('deadline', ">", $current_date)->get();
+        $borrows_late = Borrow::where('reader_id', Auth::id())->where('status', "ACCEPTED")->where('deadline', "<=", $current_date)->get();
         $borrows_rejected = Borrow::where('reader_id', Auth::id())->where('status', "REJECTED")->get();
         $borrows_returned = Borrow::where('reader_id', Auth::id())->where('status', "RETURNED")->get();
+        
 
         return view('user.borrows.index', compact(
             'borrows_pending', 
