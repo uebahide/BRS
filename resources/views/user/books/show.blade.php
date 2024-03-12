@@ -46,10 +46,14 @@
                 </div>
 
                 @if(!$isOnGoingRental)
-                <div class="flex justify-center mb-6">
-                  <x-primary-button class="ms-3">
-                    Rent this book
-                  </x-primary-button>
+                <div class="flex justify-center mb-3">
+                  <form action="{{route('user.borrows.create')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="book_id" value={{$book->id}}>
+                    <x-primary-button  class="ms-3">
+                      Rent this book
+                    </x-primary-button>
+                  </form>
                 </div>
                 @else
                 <div class="flex justify-center mb-6 text-red-300">
@@ -57,8 +61,7 @@
                 </div>
                 @endif
 
-
-                <div class="mb-6 flex justify-around">
+                <div class="my-6 flex justify-around">
                   @if($genre_id)
                   <a href="{{route('user.books.filteredByGenreIndex', ['genre' => $genre_id])}}">
                     <x-secondary-button class="ms-3">

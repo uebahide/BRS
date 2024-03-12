@@ -22,7 +22,7 @@ return new class extends Migration
                 ->constrained()
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->enum('status', ['PENDING', 'ACCEPTED', 'REJECTED', 'RETURNED']);
+            $table->enum('status', ['PENDING', 'ACCEPTED', 'REJECTED', 'RETURNING' ,'RETURNED']);
             $table->datetime('request_processed_at')->nullable();
             $table->foreignId('request_managed_by')->nullable()
                 ->references('id')

@@ -13,6 +13,7 @@ use App\Http\Controllers\Librarian\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Librarian\Auth\RegisteredUserController;
 use App\Http\Controllers\Librarian\Auth\VerifyEmailController;
 use App\Http\Controllers\Librarian\BooksController;
+use App\Http\Controllers\Librarian\BorrowsController;
 use App\Http\Controllers\Librarian\GenresController;
 use App\Http\Controllers\Librarian\RengesController;
 use App\Http\Controllers\Librarian\LibrarianController;
@@ -109,6 +110,16 @@ Route::prefix('expired-genres')
     Route::get('/index', [GenresController::class, 'expiredGenresIndex'])->name('expired-genres.index');
     Route::post('/destroy/{genre}', [GenresController::class, 'expiredGenresDestroy'])->name('expired-genres.destroy');
     Route::post('/restore/{genre}', [GenresController::class, 'expiredGenresRestore'])->name('expired-genres.restore');
+});
+
+Route::prefix('borrows')
+->middleware('auth:librarian')
+->group(function(){
+    Route::get('/index', [BorrowsController::class, 'index'])->name('borrows.index');
+    Route::get('/show/{borrow}', [BorrowsController::class, 'show'])->name('borrows.show');
+    Route::post('/acceptPending', [BorrowsController::class, 'acceptPending'])->name('borrows.acceptPending');
+    Route::post('/rejectPending', [BorrowsController::class, 'rejectPending'])->name('borrows.rejectPending');
+    Route::post('/acceptReturning', [BorrowsController::class, 'acceptReturning'])->name('borrows.acceptReturning');
 });
 
 

@@ -4,7 +4,7 @@
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div class="overflow-hidden shadow-sm sm:rounded-lg">
             @if($borrow->deadline <= now() && $borrow->status == "ACCEPTED")
-                <div class=" p-2 text-xl text-red-400 text-center w-1/2 mx-auto">The return is delayed! Please return this book as soon as possible.</div>
+                <div class="bg-red-300 p-2 text-xl border rounded text-center w-1/2 mx-auto">This rental is late!</div>
             @endif
 
             <div class="p-6 text-gray-900">
@@ -17,7 +17,7 @@
                                 Title
                             </th>
                             <td class="px-6 py-4 underline">
-                            <form action="{{route('user.books.show', ['book' => $borrow->book->id])}}" method="GET">
+                            <form action="{{route('librarian.books.show', ['book' => $borrow->book->id])}}" method="GET">
                                 @csrf
                                 <input type="hidden" name="borrow_id" value={{$borrow->id}}>
                                 <button type="submit" class="underline">
@@ -114,18 +114,42 @@
             </div>
             </div>
 
-            @if($borrow->status == "ACCEPTED")
-                <form action="{{route('user.borrows.return')}}" method="POST">
-                    @csrf
-                    <input type="hidden" name="borrow_id" value="{{$borrow->id}}">
-                    <div class="text-center mb-20">
-                        <x-danger-button>Return</x-danger-button>
+            @if($borrow->status == "PENDING")
+            <form action="{{route('librarian.borrows.acceptPending')}}" method="POST">
+                @csrf
+                <input type="hidden" name="borrow_id" value="{{$borrow->id}}">
+                <input type="hidden" name="request_managed_by" value="{{Auth::id()}}">
+
+                <div class="flex flex-col w-1/3 px-6 mb-20 mx-auto border rounded-lg bg-gray-200">
+                    <label class="text-center text-xl my-2" for="deadline">Deadline</label>
+                    <input type="date" name="deadline" id="deadline" value="{{old('deadline')}}" class="mb-2 rounded" required>
+                    <x-input-error :messages="$errors->get('deadline')" class="mt-2" />
+                    <div class="text-center my-4">
+                        <x-primary-button>Accept Pending</x-primary-button>
                     </div>
-                </form>
+                </div>
+            </form>
+            <form action="{{route('librarian.borrows.rejectPending')}}" method="POST">
+                @csrf
+                <input type="hidden" name="borrow_id" value="{{$borrow->id}}">
+                <input type="hidden" name="request_managed_by" value="{{Auth::id()}}">
+                <div class="text-center mb-20">
+                    <x-danger-button>Reject Pending</x-danger-button>
+                </div>
+            </form>
+            @elseif($borrow->status == "RETURNING")
+            <form action="{{route('librarian.borrows.acceptReturning')}}" method="POST">
+                @csrf
+                <input type="hidden" name="borrow_id" value="{{$borrow->id}}">
+                <input type="hidden" name="return_managed_by" value="{{Auth::id()}}">
+                <div class="text-center mb-20">
+                    <x-primary-button>Accept Return</x-primary-button>
+                </div>
+            </form>
             @endif
 
             <div class="flex justify-center mb-6">
-            <x-secondary-button onclick="location.href=('{{route('user.borrows.index')}}')" class="">
+            <x-secondary-button onclick="location.href=('{{route('librarian.borrows.index')}}')">
                 Back
             </x-secondary-button>
             </div>

@@ -76,6 +76,12 @@
                       Back
                     </x-secondary-submit-button>
                   </form>
+                  @elseif($borrow_id)
+                  <a href="{{route('librarian.borrows.show', ['borrow' => $borrow_id])}}">
+                    <x-secondary-button class="ms-3">
+                      Back
+                    </x-secondary-button>
+                  </a>
                   @else
                   <a href="{{route('librarian.home')}}">
                     <x-secondary-button class="ms-3">
@@ -88,6 +94,7 @@
                     <input type="hidden" name="genre_id" value={{$genre_id}}>
                     <input type="hidden" name="title" value={{$title}}>
                     <input type="hidden" name="authors" value={{$authors}}>
+                    <input type="hidden" name="borrow_id" value={{$borrow_id}}>
                     <x-primary-button class="ms-3">
                       Edit
                     </x-primary-button>
