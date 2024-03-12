@@ -45,7 +45,15 @@
                   </div>
                 </div>
 
-                @if(!$isOnGoingRental)
+                @if($isOnGoingRental)
+                <div class="flex justify-center mb-6 text-orange-300">
+                  <p>Currently, you are rentaling this book</p>
+                </div>
+                @elseif($available_count <= 0)
+                <div class="flex justify-center mb-6 text-red-300">
+                  <p>Sorry, currently there is no available stock.</p>
+                </div>
+                @else
                 <div class="flex justify-center mb-3">
                   <form action="{{route('user.borrows.create')}}" method="POST">
                     @csrf
@@ -54,10 +62,6 @@
                       Rent this book
                     </x-primary-button>
                   </form>
-                </div>
-                @else
-                <div class="flex justify-center mb-6 text-red-300">
-                  <p>Currently, you are rentaling this book</p>
                 </div>
                 @endif
 

@@ -26,7 +26,7 @@ class BookFactory extends Factory
             'pages' => fake()->numberBetween(100, 1000),
             'language_code' => fake()->languageCode(),
             'isbn' => fake()->unique()->isbn13(),
-            'in_stock' => fake()->numberBetween(0, 100),
+            'in_stock' => fake()->numberBetween(1, 100),
         ];
     }
 }
