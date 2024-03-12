@@ -15,7 +15,11 @@
     >{{ __('Delete Account') }}</x-danger-button>
 
     <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
+        @auth('users')
+        <form method="post" action="{{ route('user.profile.destroy') }}" class="p-6">
+        @elseif('librarian')
+        <form method="post" action="{{ route('librarian.profile.destroy') }}" class="p-6">
+        @endif
             @csrf
             @method('delete')
 

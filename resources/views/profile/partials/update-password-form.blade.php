@@ -9,7 +9,11 @@
         </p>
     </header>
 
-    <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
+    @auth('users')
+    <form method="post" action="{{ route('user.password.update') }}" class="mt-6 space-y-6">
+    @elseif('librarian')
+    <form method="post" action="{{ route('librarian.password.update') }}" class="mt-6 space-y-6">
+    @endif
         @csrf
         @method('put')
 
