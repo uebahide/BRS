@@ -38,7 +38,7 @@
                                             Number of active book rentals
                                         </th>
                                         <td class="px-6 py-4">
-                                            
+                                            {{$active_count}}
                                         </td>
                                     </tr>
                                 </tbody>

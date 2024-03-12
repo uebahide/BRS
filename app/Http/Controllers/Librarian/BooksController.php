@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\book_genre;
 use App\Models\Genre;
+use App\Models\Borrow;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Event\Code\Throwable;
 use Illuminate\Support\Facades\Log;
@@ -69,9 +70,9 @@ class BooksController extends Controller
                     "authors"=> $request->authors,
                     "description" => $request->description,
                     "released_at" => $request->released_at,
-                    // "cover_image" => $request->cover_image,
+                    "cover_image" => $request->cover_image ,
                     "pages" => $request->pages,
-                    // "language_code" =>  $request->language_code,
+                    "language_code" =>  $request->language_code ?? "hu",
                     "isbn" => $request->isbn,
                     "in_stock" => $request->in_stock,
                 ]);
@@ -165,7 +166,7 @@ class BooksController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BookRequest $request, string $id)
     {
         $book = Book::findOrFail($id);
 
@@ -173,9 +174,9 @@ class BooksController extends Controller
         $book->authors = $request->authors;
         $book->description = $request->description;
         $book->released_at = $request->released_at;
-        // "cover_image" => $request->cover_image,
+        $book->cover_image = $request->cover_image;
         $book->pages = $request->pages;
-        // "language_code" =>  $request->language_code,
+        $book->language_code = $request->language_code;
         $book->isbn = $request->isbn;
         $book->in_stock = $request->in_stock;
 
@@ -209,7 +210,11 @@ class BooksController extends Controller
     public function destroy(string $id)
     {
         $book = Book::findOrFail($id);
+        $borrows = $book->borrows;
 
+        foreach($borrows as $borrow){
+            $borrow->delete();
+        }
         $book->delete();
 
         return redirect()->route('librarian.home')
@@ -229,6 +234,10 @@ class BooksController extends Controller
     public function expiredBooksDestroy(string $id)
     {
         $expiredBook = Book::onlyTrashed()->findOrFail($id);
+        $expiredBorrows = Borrow::onlyTrashed()->where('book_id', $id)->get();
+        foreach($expiredBorrows as $expiredBorrow){
+            $expiredBorrow->forceDelete();
+        }
         $expiredBook->forceDelete();
 
         return redirect()->route('librarian.expired-books.index')
@@ -240,8 +249,12 @@ class BooksController extends Controller
 
     public function expiredBooksRestore(string $id)
     {
-        $deletedBook = Book::onlyTrashed()->where('id', $id)->first();
-        $deletedBook->restore();
+        $expiredBook = Book::onlyTrashed()->where('id', $id)->first();
+        $expiredBorrows = Borrow::onlyTrashed()->where('book_id', $id)->get();
+        foreach($expiredBorrows as $expiredBorrow){
+            $expiredBorrow->restore();
+        }
+        $expiredBook->restore();
 
         return redirect()->route('librarian.expired-books.index')
             ->with([

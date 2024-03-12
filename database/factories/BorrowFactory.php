@@ -20,11 +20,12 @@ class BorrowFactory extends Factory
     {
         $statusOptions = ['PENDING', 'ACCEPTED', 'REJECTED', 'RETURNED'];
         $status = fake()->randomElement($statusOptions);
+        $book_id = fake()->unique()->numberBetween(1, 100);
         $requestProcessedAt = ($status === 'PENDING') ? null : fake()->dateTimeBetween('-1 month', 'now');
 
         return [
             'reader_id' => random_int(1, 4),
-            'book_id' => random_int(1, 100),
+            'book_id' => $book_id,
             'status' => $status,
             'request_processed_at' => ($status == "PENDING") ? null : $requestProcessedAt,
             'request_managed_by' => ($status == "PENDING") ? null : 1,
