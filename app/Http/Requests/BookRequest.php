@@ -29,10 +29,10 @@ class BookRequest extends FormRequest
             "description" => 'nullable',
             "released_at" => 'nullable|date_format:Y-m-d|before:now',
             "cover_image" => 'nullable|max:255',
-            "pages" => 'nullable|integer',
+            "pages" => 'nullable|integer|min:1',
             "language_code" => 'nullable|max:3|string',
             "isbn" => ['nullable', 'string', 'size:13', Rule::unique(Book::class)->ignore($this->route('book'))],
-            "in_stock" => 'nullable|integer',
+            "in_stock" => 'nullable|integer|min:0',
             'genres' => 'required|array|min:1',
         ];
     }
