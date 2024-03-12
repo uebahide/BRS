@@ -16,6 +16,16 @@ class UserController extends Controller
         $genres = Genre::all();
         $users = User::all();
 
-        return view('user.home', compact('books', 'genres', 'users'));
+        $active_count = 0;
+
+        foreach($books as $book){
+            foreach($book->borrows as $borrow){
+                if($borrow->status == "ACCEPTED"){
+                    $active_count++;
+                }
+            }
+        }
+
+        return view('user.home', compact('books', 'genres', 'users', 'active_count'));
     }
 }

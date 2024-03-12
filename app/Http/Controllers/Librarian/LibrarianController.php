@@ -22,7 +22,16 @@ class LibrarianController extends Controller
         $books = Book::all();
         $genres = Genre::all();
         $users = User::all();
+        $active_count = 0;
 
-        return view('librarian.home', compact('books', 'genres', 'users'));
+        foreach($books as $book){
+            foreach($book->borrows as $borrow){
+                if($borrow->status == "ACCEPTED"){
+                    $active_count++;
+                }
+            }
+        }
+
+        return view('librarian.home', compact('books', 'genres', 'users', 'active_count'));
     }
 }

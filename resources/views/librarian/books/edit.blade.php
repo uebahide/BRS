@@ -45,6 +45,17 @@
                         <input type="number" id="in_stock" name="in_stock" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Number of stock" value="{{$book->in_stock}}" required />
                         <x-input-error :messages="$errors->get('in_stock')" class="mt-2" />
                       </div>
+                      <div>
+                        <label for="cover_image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">cover image url</label>
+                        <input type="text" id="cover_image" name="cover_image" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        pattern="^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$" placeholder="https:/*.*:**/***/***/***" value="{{$book->cover_image}}"/>
+                        <x-input-error :messages="$errors->get('cover_image')" class="mt-2" />
+                      </div>
+                      <div>
+                        <label for="language_code" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Languange code</label>
+                        <input type="text" id="language_code" name="language_code" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="default is hu" value="{{$book->language_code}}"/>
+                        <x-input-error :messages="$errors->get('language_code')" class="mt-2" />
+                      </div>
                     </div>
                     <div>
                       <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
