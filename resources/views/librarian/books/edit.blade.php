@@ -12,6 +12,7 @@
                     <input type="hidden" value={{$genre_id}} name="genre_id">
                     <input type="hidden" value={{$title}} name="searched_title">
                     <input type="hidden" value={{$authors}} name="searched_authors">
+                    <input type="hidden" value={{$borrow_id}} name="borrow_id">
                       <div>
                           <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
                           <input type="text" id="title" name="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Title" value="{{$book->title}}" required />
@@ -75,12 +76,13 @@
                   </form>
                   
                 <div class="flex justify-center">
-                  @if($genre_id || $title || $authors)
+                  @if($genre_id || $title || $authors || $borrow_id)
                   <form action="{{route('librarian.books.show', ['book' => $book->id])}}" method="GET">
                     @csrf
                     <input type="hidden" value={{$genre_id}} name="genre_id">
                     <input type="hidden" value={{$title}} name="title">
                     <input type="hidden" value={{$authors}} name="authors">
+                    <input type="hidden" value={{$borrow_id}} name="borrow_id">
                     <x-secondary-submit-button class="ms-3">
                       Back
                     </x-secondary-submit-button>

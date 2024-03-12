@@ -97,6 +97,7 @@ Route::prefix('borrows')
     Route::get('/index', [BorrowsController::class, 'index'])->name('borrows.index');
     Route::get('/show/{borrow}', [BorrowsController::class, 'show'])->name('borrows.show');
     Route::post('/create', [BorrowsController::class, 'create'])->name('borrows.create');
+    Route::post('/return', [BorrowsController::class, 'return'])->name('borrows.return');
 });
 
 Route::middleware('auth:users')->group(function () {

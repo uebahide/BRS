@@ -29,7 +29,7 @@ class BorrowFactory extends Factory
             'request_processed_at' => ($status == "PENDING") ? null : $requestProcessedAt,
             'request_managed_by' => ($status == "PENDING") ? null : 1,
             'deadline' => ($status == 'PENDING' || $status == 'REJECTED') ? null : fake()->dateTimeBetween($requestProcessedAt , ' +2 weeks'),
-            'returned_at' => ($status == 'RETURNED') ? fake()->dateTimeBetween($requestProcessedAt, '+2 weeks') : null,
+            'returned_at' => ($status == 'RETURNED') ? fake()->dateTimeBetween($requestProcessedAt, 'now') : null,
             'return_managed_by' => ($status == 'RETURNED') ? 1 : null,
         ];
     }

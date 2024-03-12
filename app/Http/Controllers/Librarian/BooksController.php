@@ -108,6 +108,7 @@ class BooksController extends Controller
         $genre_id = null;
         $title = null;
         $authors = null;
+        $borrow_id = $request->borrow_id;
         if($request->genre_id){
             $genre_id = $request->genre_id;
         }
@@ -119,8 +120,18 @@ class BooksController extends Controller
         {
             $authors = $request->authors;
         }
+        elseif($request->borrow_id)
+        {
+            $borrow_id = $request->borrow_id;
+        }
 
-        return view('librarian.books.show', compact('book', 'genre_id', 'title', 'authors'));
+        return view('librarian.books.show', compact(
+            'book', 
+            'genre_id', 
+            'title', 
+            'authors', 
+            'borrow_id'
+        ));
     }
 
     /**
@@ -131,6 +142,7 @@ class BooksController extends Controller
         $genre_id = $request->genre_id;
         $title = $request->title;
         $authors = $request->authors;
+        $borrow_id = $request->borrow_id;
 
         $book = Book::findOrFail($id);
         $genres = Genre::all();
@@ -139,7 +151,15 @@ class BooksController extends Controller
             $current_genres[] = $genre->id;
         }
 
-        return view('librarian.books.edit', compact('book', 'genres', 'current_genres', 'genre_id', 'title', 'authors'));
+        return view('librarian.books.edit', compact(
+            'book', 
+            'genres', 
+            'current_genres', 
+            'genre_id', 
+            'title', 
+            'authors', 
+            'borrow_id'
+        ));
     }
 
     /**
@@ -178,8 +198,9 @@ class BooksController extends Controller
         $genre_id = $request->genre_id;
         $title = $request->searched_title;
         $authors = $request->searched_authors;
+        $borrow_id = $request->borrow_id;
 
-        return view('librarian.books.show', compact('book', 'genre_id', 'title', 'authors'));
+        return view('librarian.books.show', compact('book', 'genre_id', 'title', 'authors', 'borrow_id'));
     }
 
     /**

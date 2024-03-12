@@ -19,9 +19,15 @@
                     <x-nav-link :href="route('librarian.home')" :active="request()->routeIs('librarian.home')">
                         Home
                     </x-nav-link>
+                    <x-nav-link :href="route('librarian.borrows.index')" :active="request()->routeIs('librarian.borrows.index')">
+                        Rental list
+                    </x-nav-link>
                     <x-nav-link :href="route('librarian.books.create')" :active="request()->routeIs('librarian.books.create')">
                         Add new book
                     </x-nav-link>
+                    <x-nav-link :href="route('librarian.genres.create')" :active="request()->routeIs('librarian.genres.create')">
+                        Add new genre
+                     </x-nav-link>
                     <x-nav-link :href="route('librarian.genres.index')" :active="request()->routeIs('librarian.genres.index')">
                         Genre list
                     </x-nav-link>
@@ -30,9 +36,6 @@
                     </x-nav-link>
                     <x-nav-link :href="route('librarian.expired-books.index')" :active="request()->routeIs('librarian.expired-books.index')">
                         Archived Books list
-                    </x-nav-link>
-                    <x-nav-link :href="route('librarian.genres.create')" :active="request()->routeIs('librarian.genres.create')">
-                       Add new genre
                     </x-nav-link>
                 </div>
             </div>
@@ -89,14 +92,17 @@
             <x-responsive-nav-link :href="route('librarian.home')" :active="request()->routeIs('librarian.home')">
                 Home
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('librarian.borrows.index')" :active="request()->routeIs('librarian.borrows.index')">
+                Rental list
+            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('librarian.books.create')" :active="request()->routeIs('librarian.books.create')">
                 Add new book
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('librarian.genres.index')" :active="request()->routeIs('librarian.genres.index')">
-                Genre list
-            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('librarian.genres.create')" :active="request()->routeIs('librarian.genres.create')">
                 Add new genre
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('librarian.genres.index')" :active="request()->routeIs('librarian.genres.index')">
+                Genre list
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('librarian.expired-genres.index')" :active="request()->routeIs('librarian.expired-genres.index')">
                 Archived genre list

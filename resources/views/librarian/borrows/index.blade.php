@@ -7,7 +7,7 @@
                 <x-borrows-list-item :borrows=$borrows_pending type="Pending"/>
                 <x-borrows-list-item :borrows=$borrows_accepted type="Accepted"/>
                 <x-borrows-list-item :borrows=$borrows_late type="Late"/>
-                <x-borrows-list-item :borrows=$borrows_returning type="Returning"/>   
+                <x-borrows-list-item :borrows=$borrows_returning type="Returning"/>         
                 <x-borrows-list-item :borrows=$borrows_returned type="Returned"/>         
                 <x-borrows-list-item :borrows=$borrows_rejected type="Rejected"/>
               </div>

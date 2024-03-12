@@ -1,5 +1,6 @@
-  @php
-      $bgColor = null;
+@php
+    $bgColor = null;
+    $route_show = null;
 
     switch ($type) {
       case 'Pending':
@@ -9,7 +10,7 @@
         $bgColor = "bg-green-100";
         break;
       case 'Late':
-        $bgColor = "bg-red-100";
+        $bgColor = "bg-red-300";
       break;
     case 'Rejected':
       $bgColor = "bg-gray-200";
@@ -18,7 +19,19 @@
       $bgColor = "bg-blue-100";
       break;
   }
+
+  
 @endphp
+
+@auth('users')
+  @php
+    $route_show = 'user.borrows.show';
+  @endphp
+@elseif('librarian')
+  @php
+    $route_show = 'librarian.borrows.show';
+  @endphp
+@endauth
 
 
 
@@ -28,15 +41,17 @@
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" :class="{ 'transform rotate-180': open, 'transform rotate-0': !open }">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
       </svg>
-      <div class="text-2xl mb-3 text-center">{{$type}}</div>
+      <div class="text-2xl mb-3 text-center">{{($type != "Late") ? $type : "Accepted (The return is late)"}}</div>
     </button>
     <div class="space-y-2"  x-show="open" >
         @foreach ($borrows as $borrow)
-        <a href="{{route('user.borrows.show', ['borrow'=> $borrow->id])}}" class="flex flex-col border shadow-md mb-2 bg-white p-2">
+        <a href="{{route($route_show, ['borrow'=> $borrow->id])}}" class="flex flex-col border shadow-md mb-2 bg-white p-2">
             <span>Title: {{$borrow->book->title}}</span>
             <div class="p-4">
                 <p>Authors: {{$borrow->book->authors}}</p>
-                @if($type !== "Pending")
+                @if($type == "Pending")
+                <p>Request created at : {{$borrow->created_at}}</p>
+                @elseif($type !== "Pending")
                 <p>Request processed at : {{$borrow->request_processed_at}}</p>
                 @endif  
                 @if($type !== "Pending" && $type !== "Rejected")
