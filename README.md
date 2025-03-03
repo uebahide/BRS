@@ -1,6 +1,7 @@
 ### Installation
 - install Zip file
-- install composer on your environment
+- install php (version 8.3 is recommended) on your computer
+- install composer on your computer
 - execute the following commands
 - composer install
 - npm install
