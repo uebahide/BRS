@@ -3,9 +3,11 @@
 - install composer on your environment
 - execute  $composer install
 - execute  $npm install
+- execute cp .env.example .env
+- execute php artisan key:generate
 - start two terminals, please execute the following command at the same time.
 - execute  $php artisan serve
 - execute  $npm run prod (or dev)
-
+- go to 127.0.0.1:8000 (as a default)
 - You can login as user with email: reader@brs.com, password:password123
 - You can login as librarian(admin) with email:librarian@rbs.com, password:password123
