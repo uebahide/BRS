@@ -1,12 +1,14 @@
 ### Installation
 - install Zip file
 - install composer on your environment
-- execute  $composer install
-- execute  $npm install
-- execute cp .env.example .env
-- execute php artisan key:generate
-- execute php artisan migrate:refresh
-- execute php artisan db:seed
+- execute the following commands
+- composer install
+- npm install
+- cp .env.example .env
+- touch database/database/sqlite
+- php artisan key:generate
+- php artisan migrate:refresh
+- php artisan db:seed
 - start two terminals, please execute the following command at the same time.
 - execute  $php artisan serve
 - execute  $npm run prod (or dev)
